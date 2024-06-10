@@ -23,19 +23,14 @@ export async function captureScreenshot(options: CaptureScreenShotOptions) {
     firefoxUserPrefs: {
       "webgl.force-enabled": true,
       "webgl2.force-enabled": true,
-      "gfx.webrender.force-disabled": true,
-      "gfx.x11-egl.force-enabled": true
     },
     args: [
       '--use-gl=swiftshader',
       '--no-sandbox',
       '--disable-gpu',
-      '--disable-software-rasterizer'
-    ],
-    env: {
-      LIBGL_ALWAYS_SOFTWARE: '1',
-      MOZ_WEBRENDER: '0'
-    }
+      '--disable-software-rasterizer',
+      `--window-size=${width},${height}`,
+    ]
   });
 
   const browserT1 = performance.now();
