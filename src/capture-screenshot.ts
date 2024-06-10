@@ -22,7 +22,6 @@ export async function captureScreenshot(options: CaptureScreenShotOptions) {
   const headless = !debug;
   const args = [
     '--no-sandbox',
-    '--disable-gpu',
     '--disable-dev-shm-usage',
     '--disable-setuid-sandbox',
     '--no-zygote',
@@ -35,6 +34,7 @@ export async function captureScreenshot(options: CaptureScreenShotOptions) {
   }
 
   const browser = await puppeteer.launch({
+    executablePath: process.env.CHROMIUM_PATH,
     args,
     defaultViewport: {
       width,
@@ -81,7 +81,7 @@ export async function captureScreenshot(options: CaptureScreenShotOptions) {
 
       captureTime = performance.now();
     } catch (error) {
-      console.log('❌  Closing browser because of error');
+      console.log('❌  Closing browser because of error:', error);
 
       browser.close();
     }

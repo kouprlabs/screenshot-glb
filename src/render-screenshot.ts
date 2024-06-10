@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import {Page} from 'puppeteer';
 import {AttributesObject, htmlTemplate} from './html-template';
 import {logError} from './log-error';
 import {timeDelta} from './time-delta';
@@ -13,7 +13,7 @@ interface Args {
   quality: number;
   formatExtension: string;
   modelViewerUrl: string;
-  page: puppeteer.Page;
+  page: Page;
   options: CaptureScreenShotOptions;
 }
 

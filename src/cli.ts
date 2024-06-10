@@ -4,7 +4,7 @@ import yargs from 'yargs/yargs';
 
 import {FileServer} from './file-server';
 import {FileHandler} from './file-handler';
-import {prepareAppOptions} from './prepare-app-options';
+import {Argv, prepareAppOptions} from './prepare-app-options';
 import {captureScreenshot} from './capture-screenshot';
 import {
   DEFAULT_WIDTH,
@@ -96,7 +96,7 @@ const argv = yargs(process.argv.slice(2)).options({
     describe:
       'Set <model-viewer> attributes by passing them as url params eg. exposure=2&environment-image=neutral',
   },
-}).argv;
+}).argv as Argv;
 
 (async () => {
   async function closeProgram() {
