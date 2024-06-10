@@ -1,4 +1,4 @@
-import {Page} from 'puppeteer';
+import {Page} from 'playwright';
 import {AttributesObject, htmlTemplate} from './html-template';
 import {logError} from './log-error';
 import {timeDelta} from './time-delta';
@@ -39,7 +39,7 @@ export async function renderScreenshot({
     modelViewerArgs,
   });
   await page.setContent(data, {
-    waitUntil: ['domcontentloaded', 'networkidle0'],
+    waitUntil: 'domcontentloaded',
   });
 
   const contentT1 = performance.now();
@@ -107,7 +107,7 @@ export async function renderScreenshot({
 
   const captureOptions = {
     quality: quality * 100.0,
-    type: formatExtension as 'jpeg' | 'png' | 'webp',
+    type: formatExtension as 'jpeg' | 'png',
     path: outputPath,
     omitBackground: true,
   };

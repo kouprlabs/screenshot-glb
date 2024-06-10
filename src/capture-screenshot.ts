@@ -1,4 +1,4 @@
-import puppeteer from 'puppeteer';
+import {firefox} from 'playwright';
 import {performance} from 'perf_hooks';
 import {CaptureScreenShotOptions} from './types/CaptureScreenshotOptions';
 import {timeDelta} from './time-delta';
@@ -14,34 +14,28 @@ export async function captureScreenshot(options: CaptureScreenShotOptions) {
     modelViewerUrl,
     width,
     height,
-    debug,
     quality,
-    devicePixelRatio,
     formatExtension,
   } = options;
-  const headless = !debug;
-  const args = [
-    '--no-sandbox',
-    '--disable-dev-shm-usage',
-    '--disable-setuid-sandbox',
-    '--no-zygote',
-  ];
 
-  if (headless) {
-    args.push('--single-process');
-  } else {
-    args.push('--start-maximized');
-  }
-
-  const browser = await puppeteer.launch({
-    executablePath: process.env.CHROMIUM_PATH,
-    args,
-    defaultViewport: {
-      width,
-      height,
-      deviceScaleFactor: devicePixelRatio,
+  const browser = await firefox.launch({
+    headless: true,
+    firefoxUserPrefs: {
+      "webgl.force-enabled": true,
+      "webgl2.force-enabled": true,
+      "gfx.webrender.force-disabled": true,
+      "gfx.x11-egl.force-enabled": true
     },
-    headless,
+    args: [
+      '--use-gl=swiftshader',
+      '--no-sandbox',
+      '--disable-gpu',
+      '--disable-software-rasterizer'
+    ],
+    env: {
+      LIBGL_ALWAYS_SOFTWARE: '1',
+      MOZ_WEBRENDER: '0'
+    }
   });
 
   const browserT1 = performance.now();
@@ -50,10 +44,7 @@ export async function captureScreenshot(options: CaptureScreenShotOptions) {
   console.log(`🚀  Launched browser (${timeDelta(browserT0, browserT1)}s)`);
 
   const page = await browser.newPage();
-
-  page.on('error', (error) => {
-    console.log(`🚨  Page Error: ${error}`);
-  });
+  await page.setViewportSize({ width, height });
 
   page.on('console', async (message) => {
     const args = await Promise.all(

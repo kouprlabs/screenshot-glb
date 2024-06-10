@@ -1,4 +1,4 @@
-import puppeteer, {Browser, Page} from 'puppeteer';
+import {firefox, Page} from 'playwright';
 import {captureScreenshot} from './capture-screenshot';
 import {htmlTemplate} from './html-template';
 import {performance} from 'perf_hooks';
@@ -84,7 +84,7 @@ describe('captureScreenshot', () => {
       ...defaultParams,
     });
 
-    expect(puppeteer.launch).toHaveBeenCalledWith({
+    expect(firefox.launch).toHaveBeenCalledWith({
       args: [
         '--no-sandbox',
         '--disable-gpu',
@@ -108,7 +108,7 @@ describe('captureScreenshot', () => {
       debug: true,
     });
 
-    expect(puppeteer.launch).toHaveBeenCalledWith({
+    expect(firefox.launch).toHaveBeenCalledWith({
       args: [
         '--no-sandbox',
         '--disable-gpu',
