@@ -98,3 +98,5 @@ output1.png
 output2.png
 test/screenshots
 .DS_Store
+
+.idea/

@@ -1,12 +1,15 @@
 {
   "name": "@koupr/screenshot-glb",
-  "version": "1.10.5",
+  "version": "1.10.6",
   "publishConfig": {
     "access": "public"
   },
   "description": "A command line utility for taking screenshots of a glTF 2.0 binary file using Google's <model-viewer> component.",
   "bin": {
     "screenshot-glb": "./dist/cli.js"
+  },
+  "engines": {
+    "node": ">=20.x"
   },
   "scripts": {
     "prepare": "yarn build",
@@ -25,17 +28,17 @@
   "author": "Stephan Leroux <stephan.leroux@shopify.com>",
   "license": "MIT",
   "dependencies": {
-    "@shopify/prettier-config": "^1.1.2",
-    "mime-types": "^2.1.35",
-    "playwright": "^1.44.1",
-    "yargs": "^17.7.2"
+    "mime-types": "2.1.35",
+    "playwright": "1.45.1",
+    "yargs": "17.7.2"
   },
   "devDependencies": {
-    "@types/jest": "^29.5.12",
-    "jest": "^29.7.0",
-    "prettier": "^3.3.1",
-    "ts-jest": "^29.1.4",
-    "typescript": "^5.4.5"
+    "@shopify/prettier-config": "1.1.2",
+    "@types/jest": "29.5.12",
+    "jest": "29.7.0",
+    "prettier": "3.3.3",
+    "ts-jest": "29.2.2",
+    "typescript": "5.5.3"
   },
   "packageManager": "yarn@1.22.22"
 }

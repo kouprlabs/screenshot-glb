@@ -1,4 +1,4 @@
-import {firefox} from 'playwright';
+import {webkit} from 'playwright';
 import {performance} from 'perf_hooks';
 import {CaptureScreenShotOptions} from './types/CaptureScreenshotOptions';
 import {timeDelta} from './time-delta';
@@ -18,20 +18,7 @@ export async function captureScreenshot(options: CaptureScreenShotOptions) {
     formatExtension,
   } = options;
 
-  const browser = await firefox.launch({
-    headless: true,
-    firefoxUserPrefs: {
-      "webgl.force-enabled": true,
-      "webgl2.force-enabled": true,
-    },
-    args: [
-      '--use-gl=swiftshader',
-      '--no-sandbox',
-      '--disable-gpu',
-      '--disable-software-rasterizer',
-      `--window-size=${width},${height}`,
-    ]
-  });
+  const browser = await webkit.launch({headless: true});
 
   const browserT1 = performance.now();
   let captureTime = 0;
